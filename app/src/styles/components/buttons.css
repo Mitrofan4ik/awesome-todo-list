@@ -32,6 +32,49 @@
     box-shadow: var(--shadow-md);
 }
 
+.btn-secondary {
+    background: var(--color-gray-100);
+    color: var(--text-secondary);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: var(--color-gray-200);
+    color: var(--text-primary);
+}
+
+.btn-danger {
+  background: var(--color-danger);
+  color: var(--color-white);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--color-danger), var(--color-white) 10%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-warning {
+  background: var(--color-warning);
+  color: #000;
+}
+
+.btn-warning:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--color-warning), var(--color-white) 10%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-info {
+  background: var(--color-info);
+  color: var(--color-white);
+}
+
+.btn-info:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--color-info), var(--color-white) 10%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
 .btn-dashed {
     background: var(--color-gray-100);
     border: var(--border-width-thick) dashed var(--border-color);
