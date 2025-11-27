@@ -2,6 +2,9 @@
 :root {
   --color-primary: #2b73f9;
   --color-primary-dark: #fc7cd8;
+  --color-danger: #dc3545;
+  --color-warning: #ffc107;
+  --color-info: #17a2b8;
   --color-white: #ffffff;
   --color-gray-50: #f8f9fa;
   --color-gray-100: #f0f0f0;
@@ -16,7 +19,11 @@
   --border-color: #cccccc;
   --border-width: 1px;
   --border-width-thick: 2px;
+
+  --focus-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
   
+  --overlay-bg: rgb(252 124 216 / 45%);
+
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-full: 100px;
@@ -37,6 +44,7 @@
   --font-size-sm: 14px;
   --font-size-lg: 18px;
   --font-size-2xl: 24px;
+  --font-size-3xl: 30px;
   
   --font-weight-bold: 700;
   

@@ -4,6 +4,8 @@
 @import './styles/components/badge.css';
 @import './styles/components/checkbox.css';
 @import './styles/components/scrollbar.css';
+@import './styles/components/form-control.css';
+@import './styles/components/overlay.css';
 
 * {
   box-sizing: border-box;

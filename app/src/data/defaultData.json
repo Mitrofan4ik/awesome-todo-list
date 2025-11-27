@@ -1,0 +1,17 @@
+{
+  "columns": [
+    { "id": "col-1", "title": "To Do", "order": 0 },
+    { "id": "col-2", "title": "In Progress", "order": 1 },
+    { "id": "col-3", "title": "Done", "order": 2 }
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Awesome title here!",
+      "completed": false,
+      "columnId": "col-1",
+      "order": 0,
+      "createdAt": 1234567890
+    }
+  ]
+}

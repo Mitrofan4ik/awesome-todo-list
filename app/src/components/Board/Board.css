@@ -40,6 +40,7 @@
 
 .column:hover {
     box-shadow: var(--shadow-md);
+    display: flex;
 }
 
 .column-header {
@@ -51,11 +52,22 @@
     border-bottom: var(--border-width-thick) solid var(--color-gray-100);
 }
 
+.column-header-left {
+    display: flex;
+    flex: 1 1;
+    min-width: 0%;
+    justify-content: space-between;
+    margin-inline-end: var(--space-4);
+}
+
 .column-title {
     font-size: var(--font-size-lg);
     margin: 0;
     color: var(--text-primary);
     font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .column-tasks {

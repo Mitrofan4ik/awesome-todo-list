@@ -1,0 +1,21 @@
+.form-control {
+  width: 100%;
+  padding: var(--space-3);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  transition: var(--transition-base);
+  background: var(--color-gray-100);
+  color: var(--text-primary);
+  margin-bottom: var(--space-5);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: var(--focus-shadow);
+}
+
+.form-control::placeholder {
+  color: var(--text-muted);
+}
