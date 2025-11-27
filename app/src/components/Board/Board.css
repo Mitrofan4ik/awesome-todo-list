@@ -1,0 +1,120 @@
+.board-container {
+    min-height: 100vh;
+    background: var(--bg-body);
+    padding: var(--space-5);
+}
+
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-8);
+    padding: 0 var(--space-2);
+}
+
+.board-title {
+    color: var(--color-white);
+    font-size: var(--font-size-3xl);
+    margin: 0;
+    font-weight: var(--font-weight-bold);
+}
+
+.board-columns {
+    display: flex;
+    gap: var(--space-5);
+    overflow-x: auto;
+    padding: var(--space-2);
+}
+
+.column {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    min-width: var(--column-width);
+    max-width: var(--column-width);
+    padding: var(--space-5);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition-base);
+}
+
+.column:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-4);
+    border-bottom: var(--border-width-thick) solid var(--color-gray-100);
+}
+
+.column-title {
+    font-size: var(--font-size-lg);
+    margin: 0;
+    color: var(--text-primary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.column-tasks {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    min-height: var(--column-min-height);
+}
+
+.task {
+    background: var(--color-gray-50);
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    cursor: pointer;
+    transition: var(--transition-base);
+    border: var(--border-width-thick) solid transparent;
+}
+
+.task:hover {
+    background: var(--color-gray-200);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.task-text {
+    flex: 1;
+    color: var(--text-primary);
+    word-break: break-word;
+    line-height: var(--line-height-normal);
+}
+
+.task-completed {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+    .board-container {
+        padding: var(--space-4);
+    }
+
+    .board-header {
+        flex-direction: column;
+        gap: var(--space-4);
+        align-items: stretch;
+    }
+
+    .board-title {
+        font-size: var(--font-size-2xl);
+        text-align: center;
+    }
+
+    .column {
+        min-width: 280px;
+        max-width: 280px;
+    }
+}
