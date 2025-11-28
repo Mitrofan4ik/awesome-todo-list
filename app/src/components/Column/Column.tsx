@@ -20,6 +20,7 @@ interface ColumnProps {
   onToggleTaskSelect: (taskId: string) => void;
   onDeleteTask: (taskId: string) => void;
   onSelectAllTasks: (columnId: string) => void;
+  onUpdateTaskTitle: (taskId: string, title: string) => void;
 }
 
 export const Column = ({
@@ -33,6 +34,7 @@ export const Column = ({
   onToggleTaskSelect,
   onDeleteTask,
   onSelectAllTasks,
+  onUpdateTaskTitle,
 }: ColumnProps) => {
   const columnRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -135,6 +137,7 @@ export const Column = ({
             onToggleComplete={onToggleTaskComplete}
             onToggleSelect={onToggleTaskSelect}
             onDelete={onDeleteTask}
+            onUpdateTitle={onUpdateTaskTitle}
           />
         ))}
       </div>

@@ -134,6 +134,20 @@ export const useTodoStore = () => {
   }, []);
 
   /**
+   * Updates task title
+   * @param taskId - ID of the task
+   * @param title - new title
+   */
+  const updateTaskTitle = useCallback((taskId: string, title: string) => {
+    setState((prev) => ({
+      ...prev,
+      tasks: prev.tasks.map((task) =>
+        task.id === taskId ? { ...task, title } : task
+      ),
+    }));
+  }, []);
+
+  /**
    * Updates tasks array
    * @param tasks - new tasks array
    */
@@ -261,7 +275,8 @@ export const useTodoStore = () => {
       );
       const targetColumnTasks = prev.tasks.filter(
         (task) =>
-          task.columnId === targetColumnId && !prev.selectedTaskIds.includes(task.id)
+          task.columnId === targetColumnId &&
+          !prev.selectedTaskIds.includes(task.id)
       );
       const maxOrder = targetColumnTasks.length;
 
@@ -295,6 +310,7 @@ export const useTodoStore = () => {
     deleteTask,
     toggleTaskComplete,
     updateTasks,
+    updateTaskTitle,
 
     // Task Selection
     toggleTaskSelection,

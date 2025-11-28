@@ -5,3 +5,7 @@
 .ml-2 {
     margin-left: var(--space-2);
 }
+
+.mb-0 {
+    margin-bottom: 0;
+}

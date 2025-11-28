@@ -21,6 +21,11 @@
     background: var(--color-gray-200);
 }
 
+.task-editing {
+  border-color: var(--color-primary);
+  background: var(--color-gray-50);
+}
+
 .task-dragging {
     opacity: 0.5;
     cursor: grabbing;
@@ -116,4 +121,42 @@
 
 .task-delete-btn:active {
     transform: scale(0.95);
+}
+
+.task:hover .task-edit-btn {
+  opacity: 1;
+}
+
+.task-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.task-edit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition-base);
+    opacity: 0;
+}
+
+.task-edit-btn:hover {
+  background: var(--color-gray-100);
+  color: var(--text-primary);
+}
+
+
+.task-edit-btn:active {
+  transform: scale(0.95);
+}
+
+.task-edit-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
