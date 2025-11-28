@@ -16,4 +16,5 @@ export interface Column {
 export interface TodoState {
   tasks: Task[];
   columns: Column[];
+  selectedTaskIds: string[];
 }

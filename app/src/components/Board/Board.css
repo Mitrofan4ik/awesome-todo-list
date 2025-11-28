@@ -19,41 +19,59 @@
     font-weight: var(--font-weight-bold);
 }
 
+.board-actions {
+    background: var(--color-gray-50);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    margin: 0 var(--space-2) var(--space-5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+}
+
+.board-actions-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.board-actions-count {
+    color: var(--text-primary);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-sm);
+}
+
+.btn-text {
+    background: transparent;
+    border: none;
+    color: var(--color-primary);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-md);
+    transition: var(--transition-base);
+    text-decoration: underline;
+}
+
+.btn-text:hover {
+    background: var(--color-gray-100);
+}
+
+.board-actions-buttons {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
 .board-columns {
     display: flex;
     gap: var(--space-5);
     overflow-x: auto;
     padding: var(--space-2);
-}
-
-.task {
-    background: var(--color-gray-50);
-    padding: var(--space-3);
-    border-radius: var(--radius-md);
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    cursor: pointer;
-    transition: var(--transition-base);
-    border: var(--border-width-thick) solid transparent;
-}
-
-.task:hover {
-    background: var(--color-gray-200);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
-}
-
-.task-text {
-    flex: 1;
-    color: var(--text-primary);
-    word-break: break-word;
-    line-height: var(--line-height-normal);
-}
-
-.task-completed {
-    text-decoration: line-through;
-    color: var(--text-muted);
+    align-items: flex-start;
 }
 
 @media (max-width: 768px) {
@@ -70,5 +88,23 @@
     .board-title {
         font-size: var(--font-size-2xl);
         text-align: center;
+    }
+
+    .board-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .board-actions-info {
+        justify-content: space-between;
+    }
+
+    .board-actions-buttons {
+        width: 100%;
+    }
+
+    .board-actions-buttons button,
+    .board-actions-buttons select {
+        flex: 1;
     }
 }

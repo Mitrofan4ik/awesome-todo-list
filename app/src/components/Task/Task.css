@@ -1,0 +1,119 @@
+.task {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    border: var(--border-width-thick) solid transparent;
+    background: var(--color-gray-100);
+    transition: var(--transition-base);
+}
+
+.task:hover {
+    background: var(--color-gray-200);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.task-selected {
+    border-color: var(--color-primary);
+    background: var(--color-gray-200);
+}
+
+.task-dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+}
+
+.task-drag-over {
+    border-top: 2px solid var(--color-primary);
+}
+
+.task-checkbox {
+    width: 16px;
+    height: 16px;
+    flex: none;
+    cursor: pointer;
+    accent-color: var(--color-primary);
+}
+
+.task-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    cursor: pointer;
+}
+
+.task-status-badge {
+    display: flex;
+    align-items: center;
+    flex: none;
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-full);
+    border: 1px solid;
+    background: transparent;
+    font-size: 11px;
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.4;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: var(--transition-base);
+}
+
+.task-status-badge:hover {
+    opacity: 0.7;
+}
+
+.task-status-complete {
+    border-color: var(--color-complete);
+    color: var(--color-complete);
+    background: var(--bg-complete);
+}
+
+.task-status-incomplete {
+    border-color: var(--color-incomplete);
+    color: var(--color-incomplete);
+    background: var(--bg-incomplete);
+}
+
+.task-text {
+    flex: 1;
+    color: var(--text-primary);
+    word-break: break-word;
+    line-height: var(--line-height-normal);
+}
+
+.task-completed {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+.task-delete-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition-base);
+    opacity: 0;
+}
+
+.task:hover .task-delete-btn {
+    opacity: 1;
+}
+
+.task-delete-btn:hover {
+    background: var(--color-gray-100);
+    color: var(--text-primary);
+}
+
+.task-delete-btn:active {
+    transform: scale(0.95);
+}
