@@ -5,6 +5,8 @@
   --color-danger: #dc3545;
   --color-warning: #ffc107;
   --color-info: #17a2b8;
+  --color-complete: #28a745;
+  --color-incomplete: #999999;
   --color-white: #ffffff;
   --color-gray-50: #f8f9fa;
   --color-gray-100: #f0f0f0;
@@ -15,6 +17,8 @@
   --text-muted: #999999;
   
   --bg-body: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  --bg-complete: rgba(40, 167, 69, 0.1);
+  --bg-incomplete: rgba(153, 153, 153, 0.1);
   
   --border-color: #cccccc;
   --border-width: 1px;
@@ -52,6 +56,6 @@
   
   --transition-base: 200ms ease;
   
-  --column-width: 300px;
+  --column-width: 400px;
   --column-min-height: 100px;
 }
