@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { TodoState, Column } from "../types";
+import { TodoState, Column, Task } from "../types";
 import { loadState, saveState } from "../utils/storage";
 import defaultData from "../data/defaultData.json";
 
@@ -64,9 +64,33 @@ export const useTodoStore = () => {
     }));
   }, []);
 
+  /**
+   * Updates columns array
+   * @param columns - new columns array
+   */
+  const updateColumns = useCallback((columns: Column[]) => {
+    setState((prev) => ({
+      ...prev,
+      columns,
+    }));
+  }, []);
+
+  /**
+   * Updates tasks array
+   * @param tasks - new tasks array
+   */
+  const updateTasks = useCallback((tasks: Task[]) => {
+    setState((prev) => ({
+      ...prev,
+      tasks,
+    }));
+  }, []);
+
   return {
     state,
     addColumn,
     deleteColumn,
+    updateColumns,
+    updateTasks,
   };
 };
