@@ -24,6 +24,7 @@ export const Board = () => {
     markSelectedAsComplete,
     markSelectedAsIncomplete,
     moveSelectedTasksToColumn,
+    updateTaskTitle
   } = useTodoStore();
 
   const [isAddingColumn, setIsAddingColumn] = useState(false);
@@ -165,6 +166,7 @@ export const Board = () => {
             onToggleTaskComplete={toggleTaskComplete}
             onToggleTaskSelect={toggleTaskSelection}
             onDeleteTask={deleteTask}
+            onUpdateTaskTitle={updateTaskTitle}
             onSelectAllTasks={selectAllTasksInColumn}
           />
         ))}

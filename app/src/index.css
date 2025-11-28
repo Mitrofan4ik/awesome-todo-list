@@ -1,5 +1,4 @@
 @import './styles/helpers/variables.css';
-@import './styles/helpers/utilities.css';
 @import './styles/components/buttons.css';
 @import './styles/components/badge.css';
 @import './styles/components/checkbox.css';
@@ -7,6 +6,7 @@
 @import './styles/components/form-control.css';
 @import './styles/components/overlay.css';
 @import './styles/components/select.css';
+@import './styles/helpers/utilities.css';
 
 * {
   box-sizing: border-box;
