@@ -4,6 +4,7 @@
   --color-primary-dark: #fc7cd8;
   --color-danger: #dc3545;
   --color-warning: #ffc107;
+  --color-highlight: #ffd700;
   --color-info: #17a2b8;
   --color-complete: #28a745;
   --color-incomplete: #999999;
@@ -11,6 +12,7 @@
   --color-gray-50: #f8f9fa;
   --color-gray-100: #f0f0f0;
   --color-gray-200: #e9ecef;
+  --color-black: #000000;
   
   --text-primary: #333333;
   --text-secondary: #666666;

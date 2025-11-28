@@ -29,3 +29,11 @@ code {
 .app {
   min-height: 100vh;
 }
+
+.highlight {
+  background-color: var(--color-highlight);
+  color: var(--color-black);
+  font-weight: var(--font-weight-semibold);
+  padding: 1px 2px;
+  border-radius: 2px;
+}

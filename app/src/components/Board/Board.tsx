@@ -6,6 +6,8 @@ import { TaskForm } from "../TaskForm/TaskForm";
 import { ConfirmModal } from "../ConfirmModal/ConfirmModal";
 import { Column } from "../Column/Column";
 import "./Board.css";
+import { SearchBar } from "../SearchBar/SearchBar";
+import { PlusIcon } from "../Icons/Icons";
 
 export const Board = () => {
   const {
@@ -24,7 +26,8 @@ export const Board = () => {
     markSelectedAsComplete,
     markSelectedAsIncomplete,
     moveSelectedTasksToColumn,
-    updateTaskTitle
+    updateTaskTitle,
+    setSearchQuery,
   } = useTodoStore();
 
   const [isAddingColumn, setIsAddingColumn] = useState(false);
@@ -89,12 +92,16 @@ export const Board = () => {
     <div className="board-container">
       <header className="board-header">
         <h1 className="board-title">Awesome Board</h1>
-        <button
-          onClick={() => setIsAddingColumn(true)}
-          className="btn btn-primary"
-        >
-          + Add Column
-        </button>
+        <div className="board-header-actions">
+          <SearchBar value={state.searchQuery} onChange={setSearchQuery} />
+          <button
+            onClick={() => setIsAddingColumn(true)}
+            className="btn btn-primary"
+          >
+            <PlusIcon size={16} />
+            <span className="ml-2">Add Column</span>
+          </button>
+        </div>
       </header>
 
       {hasSelectedTasks && (
@@ -143,10 +150,7 @@ export const Board = () => {
               </select>
             )}
 
-            <button
-              onClick={deleteSelectedTasks}
-              className="btn btn-danger"
-            >
+            <button onClick={deleteSelectedTasks} className="btn btn-danger">
               Delete
             </button>
           </div>
@@ -160,6 +164,7 @@ export const Board = () => {
             column={column}
             tasks={state.tasks}
             selectedTaskIds={state.selectedTaskIds}
+            searchQuery={state.searchQuery}
             index={index}
             onDelete={handleDeleteColumnClick}
             onAddTask={handleAddTaskClick}
