@@ -17,4 +17,5 @@ export interface TodoState {
   tasks: Task[];
   columns: Column[];
   selectedTaskIds: string[];
+  searchQuery: string;
 }

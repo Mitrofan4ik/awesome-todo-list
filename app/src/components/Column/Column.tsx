@@ -6,6 +6,7 @@ import {
 import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
 import { Column as ColumnType, Task as TaskType } from "../../types";
 import { Task } from "../Task/Task";
+import { useTaskSearch } from "../../hooks/useTaskSearch";
 import "./Column.css";
 import { GripVerticalIcon, PlusIcon, XIcon } from "../Icons/Icons";
 
@@ -13,6 +14,7 @@ interface ColumnProps {
   column: ColumnType;
   tasks: TaskType[];
   selectedTaskIds: string[];
+  searchQuery: string;
   index: number;
   onDelete: (columnId: string, columnTitle: string) => void;
   onAddTask: (columnId: string) => void;
@@ -27,6 +29,7 @@ export const Column = ({
   column,
   tasks,
   selectedTaskIds = [],
+  searchQuery,
   index,
   onDelete,
   onAddTask,
@@ -40,7 +43,12 @@ export const Column = ({
   const [isDragging, setIsDragging] = useState(false);
   const [isDraggedOver, setIsDraggedOver] = useState(false);
 
-  const columnTasks = tasks?.filter((t) => t.columnId === column.id) ?? [];
+  const allColumnTasks = tasks?.filter((t) => t.columnId === column.id) ?? [];
+
+  const { filteredTasks: columnTasks } = useTaskSearch({
+    tasks: allColumnTasks,
+    searchQuery,
+  });
 
   useEffect(() => {
     const element = columnRef.current;
@@ -100,7 +108,11 @@ export const Column = ({
             <GripVerticalIcon size={18} />
           </div>
           <h2 className="column-title">{column.title}</h2>
-          <span className="badge badge-primary ml-2">{columnTasks.length}</span>
+          <span className="badge badge-primary ml-2">
+            {searchQuery
+              ? `${columnTasks.length}/${allColumnTasks.length}`
+              : allColumnTasks.length}
+          </span>
         </div>
         <div className="column-header-actions">
           {columnTasks.length > 0 && (
@@ -128,18 +140,25 @@ export const Column = ({
       </div>
 
       <div className="column-tasks">
-        {columnTasks.map((task, taskIndex) => (
-          <Task
-            key={task.id}
-            task={task}
-            index={taskIndex}
-            isSelected={selectedTaskIds.includes(task.id)}
-            onToggleComplete={onToggleTaskComplete}
-            onToggleSelect={onToggleTaskSelect}
-            onDelete={onDeleteTask}
-            onUpdateTitle={onUpdateTaskTitle}
-          />
-        ))}
+        {columnTasks.length === 0 && searchQuery ? (
+          <div className="column-empty-state">
+            No tasks match "{searchQuery}"
+          </div>
+        ) : (
+          columnTasks.map((task, taskIndex) => (
+            <Task
+              key={task.id}
+              task={task}
+              index={taskIndex}
+              isSelected={selectedTaskIds.includes(task.id)}
+              searchQuery={searchQuery}
+              onToggleComplete={onToggleTaskComplete}
+              onToggleSelect={onToggleTaskSelect}
+              onDelete={onDeleteTask}
+              onUpdateTitle={onUpdateTaskTitle}
+            />
+          ))
+        )}
       </div>
 
       <button

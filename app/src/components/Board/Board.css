@@ -19,6 +19,11 @@
     font-weight: var(--font-weight-bold);
 }
 
+.board-header-actions {
+    display: flex;
+    gap: var(--space-3);
+}
+
 .board-actions {
     background: var(--color-gray-50);
     border: 1px solid var(--border-color);

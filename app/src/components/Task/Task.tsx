@@ -7,11 +7,13 @@ import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
 import { Task as TaskType } from "../../types";
 import "./Task.css";
 import { CheckIcon, CircleIcon, XIcon, EditIcon } from "../Icons/Icons";
+import { HighlightText } from "../../utils/highlightText";
 
 interface TaskProps {
   task: TaskType;
   index: number;
   isSelected: boolean;
+  searchQuery: string;
   onToggleComplete: (taskId: string) => void;
   onToggleSelect: (taskId: string) => void;
   onDelete: (taskId: string) => void;
@@ -22,6 +24,7 @@ export const Task = ({
   task,
   index,
   isSelected,
+  searchQuery,
   onToggleComplete,
   onToggleSelect,
   onDelete,
@@ -165,7 +168,7 @@ export const Task = ({
           <span
             className={`task-text ${task.completed ? "task-completed" : ""}`}
           >
-            {task.title}
+            <HighlightText text={task.title} query={searchQuery} />
           </span>
         )}
         <button

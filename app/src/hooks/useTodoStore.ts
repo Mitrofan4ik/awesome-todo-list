@@ -18,6 +18,7 @@ const getInitialState = (): TodoState => {
     columns: defaultData.columns,
     tasks: defaultData.tasks,
     selectedTaskIds: [],
+    searchQuery: "",
   };
 };
 
@@ -297,6 +298,19 @@ export const useTodoStore = () => {
     });
   }, []);
 
+  // ========== Search ==========
+
+  /**
+   * Sets search query
+   * @param query - search query string
+   */
+  const setSearchQuery = useCallback((query: string) => {
+    setState((prev) => ({
+      ...prev,
+      searchQuery: query,
+    }));
+  }, []);
+
   return {
     state,
 
@@ -322,5 +336,8 @@ export const useTodoStore = () => {
     markSelectedAsComplete,
     markSelectedAsIncomplete,
     moveSelectedTasksToColumn,
+
+    // Search
+    setSearchQuery,
   };
 };
