@@ -8,8 +8,7 @@ import { useTaskSelection } from "./useTaskSelection";
 import { useTaskBulkOperations } from "./useTaskBulkOperations";
 
 /**
- * Initializes application state
- * First checks localStorage for saved data, if none exists - uses defaultData.json
+ * Initialize state from localStorage or default data
  */
 const getInitialState = (): TodoState => {
   const savedState = loadState();
@@ -27,17 +26,19 @@ const getInitialState = (): TodoState => {
 };
 
 /**
- * Custom hook for managing Todo application state
- * Automatically synchronizes state with localStorage
+ * Main application state management hook
+ * Composes specialized hooks for columns, tasks, selection, and bulk operations
+ * Automatically syncs state to localStorage
  */
 export const useTodoStore = () => {
   const [state, setState] = useState<TodoState>(getInitialState);
 
-  // Sync state to localStorage on every change
+  // Auto-save to localStorage
   useEffect(() => {
     saveState(state);
   }, [state]);
 
+  // Compose specialized hooks
   const columns = useColumns({
     columns: state.columns,
     tasks: state.tasks,
@@ -59,13 +60,7 @@ export const useTodoStore = () => {
     updateState: setState,
   });
 
-
-  // ========== Search ==========
-
-  /**
-   * Sets search query
-   * @param query - search query string
-   */
+  // Search query management
   const setSearchQuery = useCallback((query: string) => {
     setState((prev) => ({
       ...prev,
@@ -76,7 +71,6 @@ export const useTodoStore = () => {
   return {
     state,
     setSearchQuery,
-
     ...columns,
     ...tasks,
     ...taskSelection,
