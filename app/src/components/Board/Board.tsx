@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useTodoStore } from "../../hooks/useTodoStore";
 import { useDragAndDrop } from "../../hooks/useDragAndDrop";
+import { useTaskFilter } from "../../hooks/useTaskFilter";
 import { CreateColumnForm } from "../CreateColumnForm/CreateColumnForm";
 import { TaskForm } from "../TaskForm/TaskForm";
 import { ConfirmModal } from "../ConfirmModal/ConfirmModal";
+import { Filter } from "../Filter/Filter";
 import { Column } from "../Column/Column";
 import "./Board.css";
 import { SearchBar } from "../SearchBar/SearchBar";
@@ -29,6 +31,8 @@ export const Board = () => {
     updateTaskTitle,
     setSearchQuery,
   } = useTodoStore();
+
+  const { filterStatus, setFilterStatus } = useTaskFilter();
 
   const [isAddingColumn, setIsAddingColumn] = useState(false);
   const [addingTaskToColumn, setAddingTaskToColumn] = useState<string | null>(
@@ -94,6 +98,10 @@ export const Board = () => {
         <h1 className="board-title">Awesome Board</h1>
         <div className="board-header-actions">
           <SearchBar value={state.searchQuery} onChange={setSearchQuery} />
+          <Filter
+            currentFilter={filterStatus}
+            onFilterChange={setFilterStatus}
+          />
           <button
             onClick={() => setIsAddingColumn(true)}
             className="btn btn-primary"
@@ -165,6 +173,7 @@ export const Board = () => {
             tasks={state.tasks}
             selectedTaskIds={state.selectedTaskIds}
             searchQuery={state.searchQuery}
+            filterStatus={filterStatus}
             index={index}
             onDelete={handleDeleteColumnClick}
             onAddTask={handleAddTaskClick}
