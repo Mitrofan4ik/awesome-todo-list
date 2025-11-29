@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Task } from "../types";
-import { FILTER_STATUS } from "../constants/filter-status";
+import { STATUS } from "../constants/status";
 
 interface UseTaskSearchProps {
   tasks: Task[];
@@ -20,13 +20,13 @@ interface UseTaskSearchReturn {
 export const useTaskSearch = ({
   tasks,
   searchQuery = "",
-  filterStatus = FILTER_STATUS.ALL,
+  filterStatus = STATUS.ALL,
 }: UseTaskSearchProps): UseTaskSearchReturn => {
   const filteredTasks = useMemo(() => {
     let result = tasks;
 
-    const isCompletedFilter = filterStatus === FILTER_STATUS.COMPLETED;
-    const isIncompleteFilter = filterStatus === FILTER_STATUS.INCOMPLETE;
+    const isCompletedFilter = filterStatus === STATUS.COMPLETED;
+    const isIncompleteFilter = filterStatus === STATUS.INCOMPLETE;
 
     if (isCompletedFilter) {
       result = result.filter((task) => task.completed);

@@ -1,5 +1,5 @@
-import './ConfirmModal.css';
-
+import { DEFAULT_TEXT, MODAL_STATUS } from "../../constants/modal";
+import "./ConfirmModal.css";
 interface ConfirmModalProps {
   title: string;
   message: string;
@@ -7,17 +7,17 @@ interface ConfirmModalProps {
   cancelText?: string;
   onConfirm: () => void;
   onCancel: () => void;
-  status?: 'danger' | 'warning' | 'info';
+  status?: "danger" | "warning" | "info";
 }
 
 export const ConfirmModal = ({
   title,
   message,
-  confirmText = 'Confirm',
-  cancelText = 'Cancel',
+  confirmText = DEFAULT_TEXT.CONFIRM,
+  cancelText = DEFAULT_TEXT.CANCEL,
   onConfirm,
   onCancel,
-  status = 'danger',
+  status = MODAL_STATUS.DANGER,
 }: ConfirmModalProps) => {
   return (
     <div className="overlay" onClick={onCancel}>
@@ -31,7 +31,11 @@ export const ConfirmModal = ({
         </div>
 
         <div className="modal-footer">
-          <button type="button" onClick={onCancel} className="btn btn-secondary">
+          <button
+            type="button"
+            onClick={onCancel}
+            className="btn btn-secondary"
+          >
             {cancelText}
           </button>
           <button

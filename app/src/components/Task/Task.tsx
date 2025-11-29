@@ -8,6 +8,7 @@ import { Task as TaskType } from "../../types";
 import "./Task.css";
 import { CheckIcon, CircleIcon, XIcon, EditIcon } from "../Icons/Icons";
 import { HighlightText } from "../shared/HghlightText";
+import { STATUS } from "../../constants/status";
 
 interface TaskProps {
   task: TaskType;
@@ -182,12 +183,12 @@ export const Task = ({
           {task.completed ? (
             <>
               <CheckIcon size={10} />
-              <span className="ml-2">Complete</span>
+              <span className="ml-2">{STATUS.COMPLETED}</span>
             </>
           ) : (
             <>
               <CircleIcon size={10} />
-              <span className="ml-2">Incomplete</span>
+              <span className="ml-2">{STATUS.INCOMPLETE}</span>
             </>
           )}
         </button>
