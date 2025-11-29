@@ -1,6 +1,6 @@
-import { ChangeEvent } from 'react';
-import { XIcon } from '../Icons/Icons';
-import './SearchBar.css';
+import { ChangeEvent } from "react";
+import { XIcon } from "../Icons/Icons";
+import "./SearchBar.css";
 
 interface SearchBarProps {
   value: string;
@@ -13,12 +13,13 @@ export const SearchBar = ({ value, onChange }: SearchBarProps) => {
   };
 
   const handleClear = () => {
-    onChange('');
+    onChange("");
   };
 
   return (
     <div className="search-bar">
       <input
+        id="search-bar-id"
         type="text"
         className="form-control mb-0"
         placeholder="Search tasks..."
@@ -26,10 +27,7 @@ export const SearchBar = ({ value, onChange }: SearchBarProps) => {
         onChange={handleChange}
       />
       {value && (
-        <button
-          onClick={handleClear}
-          className="search-clear-btn"
-        >
+        <button onClick={handleClear} className="search-clear-btn">
           <XIcon size={16} />
         </button>
       )}

@@ -4,3 +4,16 @@
     cursor: pointer;
     accent-color: var(--color-primary);
 }
+
+.check-all-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: var(--space-1);
+    border-radius: var(--radius-md);
+    transition: var(--transition-base);
+}
+
+.check-all-label:hover {
+    background: var(--color-gray-100);
+}

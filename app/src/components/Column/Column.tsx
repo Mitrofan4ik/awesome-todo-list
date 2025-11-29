@@ -120,19 +120,18 @@ export const Column = ({
         </div>
         <div className="column-header-actions">
           {columnTasks.length > 0 && (
-            <button
-              onClick={() => onSelectAllTasks(column.id)}
-              className="btn-icon"
+            <label
+              className="check-all-label"
+              title={allSelectedInColumn ? "Deselect all" : "Select all"}
             >
               <input
                 id={`select-all-${column.id}`}
                 type="checkbox"
                 checked={allSelectedInColumn}
-                onChange={() => {}}
-                readOnly
+                onChange={() => onSelectAllTasks(column.id)}
                 className="checkbox"
               />
-            </button>
+            </label>
           )}
           <button
             onClick={() => onDelete(column.id, column.title)}

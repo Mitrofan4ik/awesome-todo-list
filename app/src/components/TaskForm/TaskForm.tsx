@@ -29,7 +29,7 @@ export const TaskForm = ({ onSubmit, onCancel }: TaskFormProps) => {
 
         <form onSubmit={handleSubmit}>
           <input
-            id="new-task-id"
+            id="task-form-input"
             type="text"
             className="form-control"
             placeholder="Task name"
