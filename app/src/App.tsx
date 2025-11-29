@@ -1,11 +1,7 @@
-import { Board } from './components/Board/Board';
+import { Board } from "./components/Board/Board";
 
 function App() {
-  return (
-    <div className="app">
-      <Board />
-    </div>
-  );
+  return <Board />;
 }
 
 export default App;

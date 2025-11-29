@@ -91,10 +91,3 @@
     margin-bottom: var(--space-4);
     min-height: var(--column-min-height);
 }
-
-@media (max-width: 768px) {
-    .column {
-        min-width: 280px;
-        max-width: 280px;
-    }
-}

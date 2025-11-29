@@ -7,7 +7,7 @@ import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
 import { Task as TaskType } from "../../types";
 import "./Task.css";
 import { CheckIcon, CircleIcon, XIcon, EditIcon } from "../Icons/Icons";
-import { HighlightText } from "../../utils/highlightText";
+import { HighlightText } from "../shared/HghlightText";
 
 interface TaskProps {
   task: TaskType;
