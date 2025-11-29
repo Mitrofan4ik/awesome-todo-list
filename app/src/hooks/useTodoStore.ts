@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
-import { TodoState, Task } from "../types";
+import { TodoState } from "../types";
 import { loadState, saveState } from "../utils/storage";
 import defaultData from "../data/defaultData.json";
 import { useColumns } from "./useColumns";
+import { useTasks } from "./useTasks";
 
 /**
  * Initializes application state
@@ -41,82 +42,10 @@ export const useTodoStore = () => {
     updateState: setState,
   });
 
-  // ========== Tasks ==========
-
-  /**
-   * Adds a new task to a column
-   * @param title - task title
-   * @param columnId - ID of the column
-   */
-  const addTask = useCallback(
-    (title: string, columnId: string) => {
-      const columnTasks = state.tasks.filter((t) => t.columnId === columnId);
-      const newTask: Task = {
-        id: `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-        title,
-        completed: false,
-        columnId,
-        order: columnTasks.length,
-        createdAt: Date.now(),
-      };
-
-      setState((prev) => ({
-        ...prev,
-        tasks: [...prev.tasks, newTask],
-      }));
-    },
-    [state.tasks]
-  );
-
-  /**
-   * Deletes a task
-   * @param taskId - ID of the task to delete
-   */
-  const deleteTask = useCallback((taskId: string) => {
-    setState((prev) => ({
-      ...prev,
-      tasks: prev.tasks.filter((task) => task.id !== taskId),
-      selectedTaskIds: prev.selectedTaskIds.filter((id) => id !== taskId),
-    }));
-  }, []);
-
-  /**
-   * Toggles task completion status
-   * @param taskId - ID of the task
-   */
-  const toggleTaskComplete = useCallback((taskId: string) => {
-    setState((prev) => ({
-      ...prev,
-      tasks: prev.tasks.map((task) =>
-        task.id === taskId ? { ...task, completed: !task.completed } : task
-      ),
-    }));
-  }, []);
-
-  /**
-   * Updates task title
-   * @param taskId - ID of the task
-   * @param title - new title
-   */
-  const updateTaskTitle = useCallback((taskId: string, title: string) => {
-    setState((prev) => ({
-      ...prev,
-      tasks: prev.tasks.map((task) =>
-        task.id === taskId ? { ...task, title } : task
-      ),
-    }));
-  }, []);
-
-  /**
-   * Updates tasks array
-   * @param tasks - new tasks array
-   */
-  const updateTasks = useCallback((tasks: Task[]) => {
-    setState((prev) => ({
-      ...prev,
-      tasks,
-    }));
-  }, []);
+  const tasks = useTasks({
+    tasks: state.tasks,
+    updateState: setState,
+  });
 
   // ========== Task Selection ==========
 
@@ -274,13 +203,7 @@ export const useTodoStore = () => {
     state,
 
     ...columns,
-
-    // Tasks
-    addTask,
-    deleteTask,
-    toggleTaskComplete,
-    updateTasks,
-    updateTaskTitle,
+    ...tasks,
 
     // Task Selection
     toggleTaskSelection,
