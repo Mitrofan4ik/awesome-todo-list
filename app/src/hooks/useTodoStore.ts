@@ -5,6 +5,7 @@ import defaultData from "../data/defaultData.json";
 import { useColumns } from "./useColumns";
 import { useTasks } from "./useTasks";
 import { useTaskSelection } from "./useTaskSelection";
+import { useTaskBulkOperations } from "./useTaskBulkOperations";
 
 /**
  * Initializes application state
@@ -54,85 +55,10 @@ export const useTodoStore = () => {
     updateState: setState,
   });
 
+  const bulkOperations = useTaskBulkOperations({
+    updateState: setState,
+  });
 
-  
-  // ========== Bulk Task Operations ==========
-
-  /**
-   * Deletes all selected tasks
-   */
-  const deleteSelectedTasks = useCallback(() => {
-    setState((prev) => ({
-      ...prev,
-      tasks: prev.tasks.filter(
-        (task) => !prev.selectedTaskIds.includes(task.id)
-      ),
-      selectedTaskIds: [],
-    }));
-  }, []);
-
-  /**
-   * Marks all selected tasks as complete
-   */
-  const markSelectedAsComplete = useCallback(() => {
-    setState((prev) => ({
-      ...prev,
-      tasks: prev.tasks.map((task) =>
-        prev.selectedTaskIds.includes(task.id)
-          ? { ...task, completed: true }
-          : task
-      ),
-      selectedTaskIds: [],
-    }));
-  }, []);
-
-  /**
-   * Marks all selected tasks as incomplete
-   */
-  const markSelectedAsIncomplete = useCallback(() => {
-    setState((prev) => ({
-      ...prev,
-      tasks: prev.tasks.map((task) =>
-        prev.selectedTaskIds.includes(task.id)
-          ? { ...task, completed: false }
-          : task
-      ),
-      selectedTaskIds: [],
-    }));
-  }, []);
-
-  /**
-   * Moves all selected tasks to a different column
-   * @param targetColumnId - ID of the target column
-   */
-  const moveSelectedTasksToColumn = useCallback((targetColumnId: string) => {
-    setState((prev) => {
-      const selectedTasks = prev.tasks.filter((task) =>
-        prev.selectedTaskIds.includes(task.id)
-      );
-      const targetColumnTasks = prev.tasks.filter(
-        (task) =>
-          task.columnId === targetColumnId &&
-          !prev.selectedTaskIds.includes(task.id)
-      );
-      const maxOrder = targetColumnTasks.length;
-
-      return {
-        ...prev,
-        tasks: prev.tasks.map((task, idx) => {
-          if (prev.selectedTaskIds.includes(task.id)) {
-            return {
-              ...task,
-              columnId: targetColumnId,
-              order: maxOrder + idx,
-            };
-          }
-          return task;
-        }),
-        selectedTaskIds: [],
-      };
-    });
-  }, []);
 
   // ========== Search ==========
 
@@ -149,18 +75,11 @@ export const useTodoStore = () => {
 
   return {
     state,
+    setSearchQuery,
 
     ...columns,
     ...tasks,
     ...taskSelection,
-
-    // Bulk Operations
-    deleteSelectedTasks,
-    markSelectedAsComplete,
-    markSelectedAsIncomplete,
-    moveSelectedTasksToColumn,
-
-    // Search
-    setSearchQuery,
+    ...bulkOperations,
   };
 };
