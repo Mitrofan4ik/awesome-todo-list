@@ -4,6 +4,7 @@ import { loadState, saveState } from "../utils/storage";
 import defaultData from "../data/defaultData.json";
 import { useColumns } from "./useColumns";
 import { useTasks } from "./useTasks";
+import { useTaskSelection } from "./useTaskSelection";
 
 /**
  * Initializes application state
@@ -47,67 +48,14 @@ export const useTodoStore = () => {
     updateState: setState,
   });
 
-  // ========== Task Selection ==========
+  const taskSelection = useTaskSelection({
+    tasks: state.tasks,
+    selectedTaskIds: state.selectedTaskIds,
+    updateState: setState,
+  });
 
-  /**
-   * Toggles task selection
-   * @param taskId - ID of the task
-   */
-  const toggleTaskSelection = useCallback((taskId: string) => {
-    setState((prev) => ({
-      ...prev,
-      selectedTaskIds: prev.selectedTaskIds.includes(taskId)
-        ? prev.selectedTaskIds.filter((id) => id !== taskId)
-        : [...prev.selectedTaskIds, taskId],
-    }));
-  }, []);
 
-  /**
-   * Selects all tasks in a column
-   * @param columnId - ID of the column
-   */
-  const selectAllTasksInColumn = useCallback((columnId: string) => {
-    setState((prev) => {
-      const columnTaskIds = prev.tasks
-        .filter((task) => task.columnId === columnId)
-        .map((task) => task.id);
-
-      const allSelected = columnTaskIds.every((id) =>
-        prev.selectedTaskIds.includes(id)
-      );
-
-      if (allSelected) {
-        // Deselect all in this column
-        return {
-          ...prev,
-          selectedTaskIds: prev.selectedTaskIds.filter(
-            (id) => !columnTaskIds.includes(id)
-          ),
-        };
-      } else {
-        // Select all in this column
-        const newSelected = new Set([
-          ...prev.selectedTaskIds,
-          ...columnTaskIds,
-        ]);
-        return {
-          ...prev,
-          selectedTaskIds: Array.from(newSelected),
-        };
-      }
-    });
-  }, []);
-
-  /**
-   * Clears all task selections
-   */
-  const clearTaskSelection = useCallback(() => {
-    setState((prev) => ({
-      ...prev,
-      selectedTaskIds: [],
-    }));
-  }, []);
-
+  
   // ========== Bulk Task Operations ==========
 
   /**
@@ -204,11 +152,7 @@ export const useTodoStore = () => {
 
     ...columns,
     ...tasks,
-
-    // Task Selection
-    toggleTaskSelection,
-    selectAllTasksInColumn,
-    clearTaskSelection,
+    ...taskSelection,
 
     // Bulk Operations
     deleteSelectedTasks,
