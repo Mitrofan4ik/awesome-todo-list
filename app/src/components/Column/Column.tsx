@@ -16,6 +16,7 @@ interface ColumnProps {
   selectedTaskIds: string[];
   searchQuery: string;
   index: number;
+  filterStatus: "all" | "completed" | "incomplete";
   onDelete: (columnId: string, columnTitle: string) => void;
   onAddTask: (columnId: string) => void;
   onToggleTaskComplete: (taskId: string) => void;
@@ -31,6 +32,7 @@ export const Column = ({
   selectedTaskIds = [],
   searchQuery,
   index,
+  filterStatus = "all",
   onDelete,
   onAddTask,
   onToggleTaskComplete,
@@ -44,10 +46,12 @@ export const Column = ({
   const [isDraggedOver, setIsDraggedOver] = useState(false);
 
   const allColumnTasks = tasks?.filter((t) => t.columnId === column.id) ?? [];
+  const showingFiltered = searchQuery || filterStatus !== "all";
 
   const { filteredTasks: columnTasks } = useTaskSearch({
     tasks: allColumnTasks,
     searchQuery,
+    filterStatus,
   });
 
   useEffect(() => {
@@ -140,10 +144,8 @@ export const Column = ({
       </div>
 
       <div className="column-tasks">
-        {columnTasks.length === 0 && searchQuery ? (
-          <div className="column-empty-state">
-            No tasks match "{searchQuery}"
-          </div>
+        {columnTasks.length === 0 && showingFiltered ? (
+          <div className="column-empty-state">No tasks match</div>
         ) : (
           columnTasks.map((task, taskIndex) => (
             <Task

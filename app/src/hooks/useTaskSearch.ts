@@ -4,6 +4,7 @@ import { Task } from "../types";
 interface UseTaskSearchProps {
   tasks: Task[];
   searchQuery?: string;
+  filterStatus?: "all" | "completed" | "incomplete";
 }
 
 interface UseTaskSearchReturn {
@@ -13,25 +14,37 @@ interface UseTaskSearchReturn {
 }
 
 /**
- * Custom hook for task search functionality
- * Filters tasks based on search query
+ * Custom hook for task search and filter functionality
+ * Filters tasks based on search query and completion status
  */
 export const useTaskSearch = ({
   tasks,
   searchQuery = "",
+  filterStatus = "all",
 }: UseTaskSearchProps): UseTaskSearchReturn => {
   const filteredTasks = useMemo(() => {
-    if (
-      !searchQuery ||
-      typeof searchQuery !== "string" ||
-      searchQuery.trim() === ""
-    ) {
-      return tasks;
+    let result = tasks;
+
+    if (filterStatus === "completed") {
+      result = result.filter((task) => task.completed);
+    } else if (filterStatus === "incomplete") {
+      result = result.filter((task) => !task.completed);
     }
 
-    const query = searchQuery.toLowerCase().trim();
-    return tasks.filter((task) => task.title.toLowerCase().includes(query));
-  }, [tasks, searchQuery]);
+    // Filter by search query
+    if (
+      searchQuery &&
+      typeof searchQuery === "string" &&
+      searchQuery.trim() !== ""
+    ) {
+      const query = searchQuery.toLowerCase().trim();
+      result = result.filter((task) =>
+        task.title.toLowerCase().includes(query)
+      );
+    }
+
+    return result;
+  }, [tasks, searchQuery, filterStatus]);
 
   const hasResults = filteredTasks.length > 0;
   const totalResults = filteredTasks.length;
