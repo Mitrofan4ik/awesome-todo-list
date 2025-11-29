@@ -1,3 +1,4 @@
+import { STATUS } from "../../constants/status";
 import "./Filter.css";
 
 type FilterStatus = "all" | "completed" | "incomplete";
@@ -16,7 +17,7 @@ export const Filter = ({ currentFilter, onFilterChange }: FilterProps) => {
         }`}
         onClick={() => onFilterChange("all")}
       >
-        All
+        {STATUS.ALL}
       </button>
       <button
         className={`filter-btn ${
@@ -24,7 +25,7 @@ export const Filter = ({ currentFilter, onFilterChange }: FilterProps) => {
         }`}
         onClick={() => onFilterChange("incomplete")}
       >
-        Incomplete
+        {STATUS.INCOMPLETE}
       </button>
       <button
         className={`filter-btn ${
@@ -32,7 +33,7 @@ export const Filter = ({ currentFilter, onFilterChange }: FilterProps) => {
         }`}
         onClick={() => onFilterChange("completed")}
       >
-        Completed
+        {STATUS.COMPLETED}
       </button>
     </div>
   );

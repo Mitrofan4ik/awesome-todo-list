@@ -1,5 +1,7 @@
 import { useState, FormEvent, ChangeEvent } from "react";
 import "./TaskForm.css";
+import { TASK } from "../../constants/task";
+import { BUTTON_TEXT } from "../../constants/common";
 
 interface TaskFormProps {
   onSubmit: (title: string) => void;
@@ -25,11 +27,11 @@ export const TaskForm = ({ onSubmit, onCancel }: TaskFormProps) => {
   return (
     <div className="overlay" onClick={onCancel}>
       <div className="task-form-modal" onClick={(e) => e.stopPropagation()}>
-        <h3 className="task-form-title">Add New Task</h3>
+        <h3 className="task-form-title">{TASK.TITLE}</h3>
 
         <form onSubmit={handleSubmit}>
           <input
-            id="new-task-id"
+            id="task-form-input"
             type="text"
             className="form-control"
             placeholder="Task name"
@@ -45,14 +47,14 @@ export const TaskForm = ({ onSubmit, onCancel }: TaskFormProps) => {
               onClick={onCancel}
               className="btn btn-secondary"
             >
-              Cancel
+              {BUTTON_TEXT.CANCEL}
             </button>
             <button
               type="submit"
               className="btn btn-primary"
               disabled={!title.trim()}
             >
-              Add Task
+              {TASK.SUBMIT}
             </button>
           </div>
         </form>

@@ -26,10 +26,6 @@ code {
     monospace;
 }
 
-.app {
-  min-height: 100vh;
-}
-
 .highlight {
   background-color: var(--color-highlight);
   color: var(--color-black);

@@ -22,6 +22,7 @@
 .board-header-actions {
     display: flex;
     gap: var(--space-3);
+    align-items: center;
 }
 
 .board-actions {
@@ -93,6 +94,12 @@
     .board-title {
         font-size: var(--font-size-2xl);
         text-align: center;
+    }
+
+    .board-header-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: var(--space-3);
     }
 
     .board-actions {

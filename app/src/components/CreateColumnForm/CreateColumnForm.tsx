@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import "./CreateColumnForm.css";
+import { FORM_CONFIG } from "../../constants/columns";
+import { BUTTON_TEXT } from "../../constants/common";
 
 interface CreateColumnFormProps {
   onSubmit: (title: string) => void;
@@ -12,30 +14,38 @@ export const CreateColumnForm = ({
 }: CreateColumnFormProps) => {
   const [title, setTitle] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (title.trim()) {
-      onSubmit(title.trim());
+    const trimmedTitle = title.trim();
+
+    if (trimmedTitle) {
+      onSubmit(trimmedTitle);
       setTitle("");
     }
   };
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const isSubmitDisabled = !title.trim();
+
   return (
     <div className="overlay" onClick={onCancel}>
       <div className="form-modal" onClick={(e) => e.stopPropagation()}>
-        <h3 className="form-title">Add New Column</h3>
+        <h3 className="form-title">{FORM_CONFIG.TITLE}</h3>
 
         <form onSubmit={handleSubmit}>
           <input
             id="form-control-id"
             type="text"
             className="form-control"
-            placeholder="Enter column name..."
+            placeholder={FORM_CONFIG.PLACEHOLDER}
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={handleChange}
             autoFocus
-            maxLength={50}
+            maxLength={FORM_CONFIG.MAX_LENGTH}
           />
 
           <div className="form-actions">
@@ -44,14 +54,14 @@ export const CreateColumnForm = ({
               onClick={onCancel}
               className="btn btn-secondary"
             >
-              Cancel
+              {BUTTON_TEXT.CANCEL}
             </button>
             <button
               type="submit"
               className="btn btn-primary"
-              disabled={!title.trim()}
+              disabled={isSubmitDisabled}
             >
-              Add Column
+              {BUTTON_TEXT.SUBMIT}
             </button>
           </div>
         </form>

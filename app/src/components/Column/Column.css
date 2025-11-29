@@ -60,8 +60,9 @@
     transition: var(--transition-base);
     user-select: none;
     position: absolute;
-    top: 2;
+    top: 50%;
     left: -6px;
+    transform: translateY(-50%);
 }
 
 .column-drag-handle:hover {
@@ -92,9 +93,8 @@
     min-height: var(--column-min-height);
 }
 
-@media (max-width: 768px) {
-    .column {
-        min-width: 280px;
-        max-width: 280px;
-    }
+.column-empty-state {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
 }

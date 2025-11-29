@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { Task } from "../types";
+import { STATUS } from "../constants/status";
 
 interface UseTaskSearchProps {
   tasks: Task[];
@@ -14,29 +15,31 @@ interface UseTaskSearchReturn {
 }
 
 /**
- * Custom hook for task search and filter functionality
  * Filters tasks based on search query and completion status
  */
 export const useTaskSearch = ({
   tasks,
   searchQuery = "",
-  filterStatus = "all",
+  filterStatus = STATUS.ALL,
 }: UseTaskSearchProps): UseTaskSearchReturn => {
   const filteredTasks = useMemo(() => {
     let result = tasks;
 
-    if (filterStatus === "completed") {
+    const isCompletedFilter = filterStatus === STATUS.COMPLETED;
+    const isIncompleteFilter = filterStatus === STATUS.INCOMPLETE;
+
+    if (isCompletedFilter) {
       result = result.filter((task) => task.completed);
-    } else if (filterStatus === "incomplete") {
+    } else if (isIncompleteFilter) {
       result = result.filter((task) => !task.completed);
     }
 
-    // Filter by search query
-    if (
+    const hasSearchQuery =
       searchQuery &&
       typeof searchQuery === "string" &&
-      searchQuery.trim() !== ""
-    ) {
+      searchQuery.trim() !== "";
+
+    if (hasSearchQuery) {
       const query = searchQuery.toLowerCase().trim();
       result = result.filter((task) =>
         task.title.toLowerCase().includes(query)
