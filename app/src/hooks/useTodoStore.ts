@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
-import { TodoState, Column, Task } from "../types";
+import { TodoState, Task } from "../types";
 import { loadState, saveState } from "../utils/storage";
 import defaultData from "../data/defaultData.json";
+import { useColumns } from "./useColumns";
 
 /**
  * Initializes application state
@@ -34,53 +35,11 @@ export const useTodoStore = () => {
     saveState(state);
   }, [state]);
 
-  // ========== Columns ==========
-
-  /**
-   * Adds a new column
-   * @param title - column title
-   */
-  const addColumn = useCallback(
-    (title: string) => {
-      const newColumn: Column = {
-        id: `col-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-        title,
-        order: state.columns.length,
-      };
-
-      setState((prev) => ({
-        ...prev,
-        columns: [...prev.columns, newColumn],
-      }));
-    },
-    [state.columns.length]
-  );
-
-  /**
-   * Deletes a column and all its tasks
-   * @param columnId - ID of the column to delete
-   */
-  const deleteColumn = useCallback((columnId: string) => {
-    setState((prev) => ({
-      ...prev,
-      columns: prev.columns.filter((col) => col.id !== columnId),
-      tasks: prev.tasks.filter((task) => task.columnId !== columnId),
-      selectedTaskIds: prev.selectedTaskIds.filter(
-        (id) => !prev.tasks.find((t) => t.id === id && t.columnId === columnId)
-      ),
-    }));
-  }, []);
-
-  /**
-   * Updates columns array
-   * @param columns - new columns array
-   */
-  const updateColumns = useCallback((columns: Column[]) => {
-    setState((prev) => ({
-      ...prev,
-      columns,
-    }));
-  }, []);
+  const columns = useColumns({
+    columns: state.columns,
+    tasks: state.tasks,
+    updateState: setState,
+  });
 
   // ========== Tasks ==========
 
@@ -314,10 +273,7 @@ export const useTodoStore = () => {
   return {
     state,
 
-    // Columns
-    addColumn,
-    deleteColumn,
-    updateColumns,
+    ...columns,
 
     // Tasks
     addTask,
